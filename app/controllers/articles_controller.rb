@@ -42,6 +42,13 @@ before_action :require_same_user, only:[:edit, :update, :destroy]
         redirect_to articles_path
     end
 
+    def complete
+        @article = Article.find(params[:id])
+        @article.update_attribute(:completed_at, Time.now)
+        redirect_to articles_path
+        flash[:notice] = "Article Completed"
+    end
+
     private
     def set_article
     @article = Article.find(params[:id])
